@@ -48,7 +48,7 @@ install:
     - |
       if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
         export LLVM_POSTFIX="";
-        brew install llvm qemu lz4 python3 squashfs jq
+        brew install llvm qemu lz4 python@3 squashfs jq
         export PATH="/usr/local/opt/llvm/bin:$PATH";
       fi
 
@@ -62,7 +62,7 @@ install:
 before_script:
   - "wget $(curl -H \"Authorization: token $GITHUB_TOKEN\" -s https://api.github.com/repos/reswitched/Mephisto/releases/latest | jq -r \".assets[] | select(.name==\\\"ctu_$TRAVIS_OS_NAME\\\") | .browser_download_url\")"
   - chmod +x ctu_$TRAVIS_OS_NAME
-  - sudo pip3 install -r  requirements.txt
+  - sudo pip3 install -r requirements.txt
   
 script:  make LD=ld.lld$LLVM_POSTFIX && LD=ld.lld$LLVM_POSTFIX make -C projects/ace_loader && make run_tests MEPHISTO=./ctu_$TRAVIS_OS_NAME
 
