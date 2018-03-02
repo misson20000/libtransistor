@@ -49,7 +49,7 @@ install:
       if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
         export LLVM_POSTFIX="";
         brew install llvm qemu lz4 python@3 squashfs jq
-        export PATH="/usr/local/opt/llvm/bin:$PATH";
+        export PATH="/usr/local/opt/llvm/bin:/usr/local/opt/python@3/bin:$PATH";
       fi
 
     # Travis has an OLD doxygen build, so we fetch a recent one
