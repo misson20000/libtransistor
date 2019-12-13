@@ -190,9 +190,7 @@ static result_t ipc_pack_message(uint32_t *buffer, ipc_pack_message_t *msg) {
 		| (0 << 28); // "w" descriptors
 
 	int c_descriptor_flags = 0;
-	if(num_c_descriptors == 1) {
-		c_descriptor_flags = 2;
-	} else if(num_c_descriptors > 1) {
+	if(num_c_descriptors > 0) {
 		c_descriptor_flags = num_c_descriptors + 2;
 	}
 
