@@ -41,6 +41,8 @@ class ResultError : public std::runtime_error {
 	virtual const char *what() const noexcept override;
 
 	const ResultCode code;
+	uint64_t backtrace[0x20] = {0};
+	size_t backtrace_size = 0;
  private:
 	std::string description;
 };
