@@ -423,7 +423,7 @@ static result_t setup_fs() {
 		goto fail_mounted_sqfs;
 	}
 	if((r = fsp_srv_mount_sd_card(&sdcard_ifs)) != RESULT_OK) {
-		printf("Failed to mount sdcard on fsp-srv: %x\n", r);
+		fprintf(stderr, "Failed to mount sdcard on fsp-srv: %x\n", r);
 		goto fail_fsp_srv;
 	}
 	trn_inode_t sdcard_inode;
