@@ -339,7 +339,37 @@ result_t ipc_server_object_close(ipc_server_object_t *obj) {
 }
 
 static void hipc_manager_dispatch(ipc_server_object_t *obj, ipc_message_t *msg, uint32_t rqid) {
-	// TODO: implement this
+	result_t r = 0;
+	
+	switch(rqid) {
+	case 3: { // QUERY_POINTER_BUFFER_SIZE
+		ipc_request_fmt_t rq = ipc_default_request_fmt;
+		LIB_ASSERT_OK(hard_failure, ipc_unflatten_request(msg, &rq, obj));
+
+		uint16_t out = obj->owning_session->pointer_buffer_size;
+
+		ipc_response_t rs = ipc_default_response;
+		rs.raw_data_size = sizeof(out);
+		rs.raw_data = (uint32_t*) &out;
+
+		LIB_ASSERT_OK(hard_failure, ipc_server_object_reply(obj, &rs));
+
+		break; }
+	default:
+		r = LIBTRANSISTOR_ERR_IPCSERVER_NO_SUCH_COMMAND;
+		goto hard_failure;
+	}
+	return;
+
+soft_failure: {
+		ipc_response_t rs = ipc_default_response;
+		rs.result_code = r;
+		
+		LIB_ASSERT_OK(hard_failure, ipc_server_object_reply(obj, &rs));
+	}
+hard_failure:
+	ipc_server_session_close(obj->owning_session);
+	return;
 }
 
 static void hipc_manager_close(ipc_server_object_t *obj) {
