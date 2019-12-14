@@ -74,6 +74,18 @@ waiter_t *waiter_create() {
 
 #define threading_debug_printf(...)
 
+static void waiter_interrupt(waiter_t *waiter) {
+	// interrupt_mutex is used to block the event thread in a place
+	// where it's safe to cancel its synchronization
+	trn_mutex_lock(&waiter->interrupt_mutex);
+	threading_debug_printf("  acquired interrupt mutex\n");
+	if(waiter->waiting_thread != NULL) {
+		result_t r = trn_thread_cancel_synchronization(waiter->waiting_thread);
+		threading_debug_printf("  interrupted event thread: 0x%x\n", r);
+	}
+	trn_mutex_unlock(&waiter->interrupt_mutex);
+}
+
 static void waiter_interrupt_lock(waiter_t *waiter) ACQUIRE(waiter->mutex) NO_THREAD_SAFETY_ANALYSIS {
 	threading_debug_printf("waiter interrupt lock\n");
 
@@ -84,16 +96,8 @@ static void waiter_interrupt_lock(waiter_t *waiter) ACQUIRE(waiter->mutex) NO_TH
 		// waiter->mutex
 		trn_recursive_mutex_lock(&waiter->waiting_mutex);
 		threading_debug_printf("  acquired waiting mutex\n");
-		
-		// interrupt_mutex is used to block the event thread in a place
-		// where it's safe to cancel its synchronization
-		trn_mutex_lock(&waiter->interrupt_mutex);
-		threading_debug_printf("  acquired interrupt mutex\n");
-		if(waiter->waiting_thread != NULL) {
-			result_t r = trn_thread_cancel_synchronization(waiter->waiting_thread);
-			threading_debug_printf("  interrupted event thread: 0x%x\n", r);
-		}
-		trn_mutex_unlock(&waiter->interrupt_mutex);
+
+		waiter_interrupt(waiter);
 		
 		threading_debug_printf("  acquiring main mutex\n");
 		trn_recursive_mutex_lock(&waiter->mutex);
@@ -182,9 +186,8 @@ wait_record_t *waiter_add_signal(waiter_t *waiter, bool (*callback)(void *data),
 
 void waiter_signal(waiter_t *waiter, wait_record_t *record) {
 	if(record->type == WAIT_RECORD_TYPE_SIGNAL) {
-		waiter_interrupt_lock(waiter);
 		record->signal.is_signalled = true;
-		trn_recursive_mutex_unlock(&waiter->mutex);
+		waiter_interrupt(waiter);
 	}
 }
 
