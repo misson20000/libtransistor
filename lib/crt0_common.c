@@ -50,6 +50,7 @@ extern char log_buffer[0x20000];
 
 // from environment.c
 extern void *env_stack_top;
+extern void *env_aslr_base;
 
 typedef struct {
 	void (**init_array)(void);
@@ -91,6 +92,7 @@ int _libtransistor_start(loader_config_entry_t *config, uint64_t thread_handle, 
 	dbg_printf("stack top: %p", stack_top);
 
 	env_stack_top = stack_top;
+	env_aslr_base = aslr_base;
 
 	// Initialize default behaviour for loader config
 	lconfig_init_default(thread_handle);

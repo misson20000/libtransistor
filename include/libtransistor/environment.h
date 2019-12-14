@@ -32,6 +32,12 @@ kernel_version_t env_get_kernel_version();
  */
 void *env_get_stack_top();
 
+
+/**
+ * @brief Returns the ASLR base
+ */
+void *env_get_aslr_base();
+
 #ifdef __cplusplus
 }
 #endif

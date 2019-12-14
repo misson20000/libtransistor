@@ -3,6 +3,7 @@
 #include<libtransistor/svc.h>
 
 void *env_stack_top;
+void *env_aslr_base;
 
 kernel_version_t env_get_kernel_version() {
 	static kernel_version_t version = KERNEL_VERSION_INVALID;
@@ -24,4 +25,8 @@ kernel_version_t env_get_kernel_version() {
 
 void *env_get_stack_top() {
 	return env_stack_top;
+}
+
+void *env_get_aslr_base() {
+	return env_aslr_base;
 }
