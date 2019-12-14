@@ -183,14 +183,14 @@ static result_t fspfs_open_as_file(void *data, int flags, int *fd) {
 
 	if (flags & O_TRUNC) {
 		if ((r = ifile_set_size(f->file, 0)) != RESULT_OK) {
-			printf("Got an error: %x\n", r);
+			printf("open_set_size: Got an error: %x\n", r);
 			goto fail;
 		}
 	}
 
 	if (flags & O_APPEND) {
 		if ((r = ifile_get_size(f->file, &file_size)) != RESULT_OK) {
-			printf("Got an error: %x\n", r);
+			printf("open_get_size: Got an error: %x\n", r);
 			goto fail;
 		}
 		f->head = file_size;
@@ -307,7 +307,7 @@ static result_t fspfs_file_read(void *data, void *buf, size_t buf_size, size_t *
 	result_t r;
 
 	if ((r = ifile_read(f->file, &out_size, buf, buf_size, 0, f->head, buf_size)) != RESULT_OK) {
-		printf("Got an error: %x\n", r);
+		printf("read: Got an error: %x\n", r);
 		return r;
 	}
 	f->head += out_size;
@@ -320,7 +320,7 @@ static result_t fspfs_file_write(void *data, const void *buf, size_t buf_size, s
 	result_t r;
 
 	if ((r = ifile_write(f->file, 0, f->head, buf_size, buf, buf_size)) != RESULT_OK) {
-		printf("Got an error: %x\n", r);
+		printf("write: Got an error: %x\n", r);
 		return r;
 	}
 	f->head += buf_size;
