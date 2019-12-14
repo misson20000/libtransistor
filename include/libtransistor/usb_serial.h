@@ -17,6 +17,11 @@ extern "C" {
 result_t usb_serial_init();
 
 /**
+ * @brief Initialize USB serial console, but don't wait for it to come up.
+ */
+result_t usb_serial_init_no_wait();
+
+/**
  * @brief Write data over the USB serial console
  */
 result_t usb_serial_write(const void *data, size_t size, size_t *bytes_written);

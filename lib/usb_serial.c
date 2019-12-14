@@ -89,7 +89,7 @@ static revent_h completion_out;
 
 static int usb_serial_initializations = 0;
 
-result_t usb_serial_init() {
+result_t usb_serial_init_no_wait() {
 	if(usb_serial_initializations++ > 0) {
 		return RESULT_OK;
 	}
@@ -98,9 +98,6 @@ result_t usb_serial_init() {
 	trn_mutex_lock(&usb_serial_mutex);
 	
 	LIB_ASSERT_OK(fail_mutex, usb_ds_init(2, NULL));
-
-	revent_h usb_state_event = 0xFFFFFFFF;
-	LIB_ASSERT_OK(fail_usb, usb_ds_get_state_change_event(&usb_state_event));
 	
 	LIB_ASSERT_OK(fail_usb,              usb_ds_get_interface(&interface_descriptor, "usb", &interface));
 	LIB_ASSERT_OK(fail_usb_interface,  usb_ds_interface_get_endpoint(&interface, &endpoint_out_descriptor, &endpoint_out));
@@ -117,9 +114,7 @@ result_t usb_serial_init() {
 	LIB_ASSERT_OK(fail_buffer,        svcSetMemoryAttribute(buffer, USB_SERIAL_TRANSFER_BUFFER_SIZE, 0x8, 0x8));
 	LIB_ASSERT_OK(fail_buffer_ma,     usb_ds_get_completion_event(&endpoint_in,  &completion_in));
 	LIB_ASSERT_OK(fail_completion_in, usb_ds_get_completion_event(&endpoint_out, &completion_out));
-	wait_for_state(usb_state_event, 5);
 
-	svcCloseHandle(usb_state_event);
 	trn_mutex_unlock(&usb_serial_mutex);
 	return RESULT_OK;
 	
@@ -136,13 +131,29 @@ fail_usb_endpoint_out:
 fail_usb_interface:
 	usb_ds_close_interface(&interface);
 fail_usb:
-	if(usb_state_event != 0xFFFFFFFF) {
-		svcCloseHandle(usb_state_event);
-	}
 	usb_ds_finalize();
 fail_mutex:
 	trn_mutex_unlock(&usb_serial_mutex);
 	usb_serial_initializations--;
+	return r;
+}
+
+result_t usb_serial_init() {
+	result_t r;
+	revent_h usb_state_event;
+	
+	LIB_ASSERT_OK(fail, usb_serial_init_no_wait());
+	LIB_ASSERT_OK(fail_usb_serial, usb_ds_get_state_change_event(&usb_state_event));
+	LIB_ASSERT_OK(fail_state_change_event, wait_for_state(usb_state_event, 5));
+	
+	svcCloseHandle(usb_state_event);
+	return RESULT_OK;
+
+fail_state_change_event:
+	svcCloseHandle(usb_state_event);
+fail_usb_serial:
+	usb_serial_finalize();
+fail:
 	return r;
 }
 
