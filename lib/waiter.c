@@ -7,6 +7,7 @@
 #include<libtransistor/condvar.h>
 #include<libtransistor/thread.h>
 #include<libtransistor/tls.h>
+#include<libtransistor/util.h>
 
 #include<malloc.h>
 #include<stdlib.h>
@@ -371,6 +372,15 @@ result_t waiter_wait(waiter_t *waiter, uint64_t timeout) {
 		trn_recursive_mutex_unlock(&waiter->mutex);
 		return RESULT_OK;
 	} else {
+		if(r == 0xe401) { // invalid handle
+			dbg_printf("WAITER: got invalid handle, let's try to figure out whodunnit\n");
+			for(int i = 0; i < num_event_records; i++) {
+				if(svcWaitSynchronization(&index, waiter->handle_buffer + i, 1, 0) == 0xe401) {
+					dbg_printf("  invalid handle: 0x%x\n", waiter->handle_buffer[i]);
+				}
+			}
+			dbg_printf("  done\n");
+		}
 		trn_recursive_mutex_unlock(&waiter->mutex);
 		return r;
 	}

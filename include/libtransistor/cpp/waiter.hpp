@@ -25,7 +25,7 @@ class WaitHandle : public std::enable_shared_from_this<WaitHandle> {
 	void ResetSignal();
 	void Cancel();
 	
-	wait_record_t *record;
+	wait_record_t *record = nullptr;
  private:
 	friend class Waiter;
 	static bool EventShim(void *data, handle_t handle);
