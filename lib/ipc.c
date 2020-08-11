@@ -1015,21 +1015,19 @@ result_t ipc_clone_current_object(ipc_object_t source, ipc_object_t *clone) {
 	return ipc_send(source, &rq, &rs);
 }
 
-static inline void ipc_debug_message(ipc_debug_level_t min, const char *label, result_t code) {
+static inline void ipc_debug_message(ipc_debug_level_t min, uint32_t *message, const char *label, result_t code) {
 	if(ipc_debug_level >= min) {
-		uint32_t *tls = get_tls()->ipc_buffer;
-		
 		char buf[0x1f8];
 		ipc_debug_level_t backup = ipc_debug_level;
 		
-		memcpy(buf, tls, sizeof(buf));
+		memcpy(buf, message, sizeof(buf));
 		
 		ipc_debug_level = IPC_DEBUG_LEVEL_NONE;
-		dbg_printf("%s: 0x%x\n", label, code);
-		hexdump_dbg(buf, 0x50);
+		printf("%s: 0x%x\n", label, code);
+		hexdump(buf, 0x50);
 		ipc_debug_level = backup;
 		
-		memcpy(tls, buf, sizeof(buf));
+		memcpy(message, buf, sizeof(buf));
 	}
 }
 
@@ -1042,25 +1040,28 @@ result_t ipc_send(ipc_object_t object, ipc_request_t *rq, ipc_response_fmt_t *rs
 	if(r) {
 		return r;
 	}
-	ipc_debug_message(IPC_DEBUG_LEVEL_ALL, "out request", r);
+	ipc_debug_message(IPC_DEBUG_LEVEL_ALL, tls, "out request", r);
 	
 	r = svcSendSyncRequest(object.object_id >= 0 ? object.domain->session : object.session);
 	if(r) {
-		ipc_debug_message(IPC_DEBUG_LEVEL_FLIGHT_ERRORS, "bad request", r);
+		ipc_debug_message(IPC_DEBUG_LEVEL_FLIGHT_ERRORS, tls, "bad request", r);
 		return r;
 	}
-	ipc_debug_message(IPC_DEBUG_LEVEL_ALL, "in response", r);
+	ipc_debug_message(IPC_DEBUG_LEVEL_ALL, tls, "in response", r);
 	
 	ipc_message_t msg;
 	r = ipc_unpack(tls, &msg);
 	if(r) {
-		ipc_debug_message(IPC_DEBUG_LEVEL_UNPACKING_ERRORS, "bad response", r);
+		ipc_debug_message(IPC_DEBUG_LEVEL_UNPACKING_ERRORS, tls, "bad response", r);
 		return r;
 	}
 
 	r = ipc_unflatten_response(&msg, rs, object);
 	if(r) {
-		ipc_debug_message(IPC_DEBUG_LEVEL_UNFLATTENING_ERRORS, "bad response", r);
+		ipc_debug_message(IPC_DEBUG_LEVEL_UNFLATTENING_ERRORS, tls, "bad response", r);
+		uint32_t message[0x1f8/4];
+		ipc_pack_request(message, rq, object);
+		ipc_debug_message(IPC_DEBUG_LEVEL_UNFLATTENING_ERRORS, message, "caused by request", 0);
 		return r;
 	}
 
