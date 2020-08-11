@@ -23,6 +23,10 @@ IS_NRO:
 .section .text, "x"
 .global start
 start:
+	// check for exception
+	cmp x0, #0
+	bne _libtransistor_exception
+	
 	// clear .bss
 	adrp x5, __bss_start
 	add x5, x5, #:lo12:__bss_start

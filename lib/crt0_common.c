@@ -280,6 +280,10 @@ fail:
 	return r;
 }
 
+void _libtransistor_exception(uint32_t error_code, void *exception_frame) {
+	svcReturnFromException(0xf801);
+}
+
 void _exit(int ret) {
 	exit_value = ret;
 	longjmp(exit_jmpbuf, NORMAL_EXIT);
