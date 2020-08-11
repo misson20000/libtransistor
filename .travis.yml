@@ -18,12 +18,12 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-5.0
+      - llvm-toolchain-xenial-8
     packages:
-      - clang-5.0
-      - llvm-5.0
-      - llvm-5.0-dev
-      - lld-5.0
+      - clang-8
+      - llvm-8
+      - llvm-8-dev
+      - lld-8
       - liblz4-dev
       - squashfs-tools
       - graphviz
@@ -33,7 +33,7 @@ addons:
       - doxygen
 install:
     # Set postfix variable
-    - export LLVM_POSTFIX=-5.0
+    - export LLVM_POSTFIX=-8
 
     # Download and install recent cmake (linux only)
     - |
