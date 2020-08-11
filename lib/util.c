@@ -223,6 +223,7 @@ int dbg_printf(char const *fmt, ...) {
 	int ret;
 	va_start(vl, fmt);
 	ret = dbg_vsnprintf(buf, 511, fmt, vl);
+	buf[ret] = '\n';
 	log_string(buf, ret+1);
 	va_end(vl);
 	return ret;
