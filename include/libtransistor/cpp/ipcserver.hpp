@@ -366,7 +366,7 @@ struct RequestHandler<Func> {
 			return r;
 		}
 
-		RequestHandler<Func>::Helper(object, fmt, accessors, std::index_sequence_for<Args...>());
+		return RequestHandler<Func>::Helper(object, fmt, accessors, std::index_sequence_for<Args...>());
 	}
  private:
 	template<std::size_t... I>
