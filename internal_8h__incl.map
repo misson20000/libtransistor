@@ -1,0 +1,7 @@
+<map id="include/libtransistor/ld/internal.h" name="include/libtransistor/ld/internal.h">
+<area shape="rect" id="node2" href="$list_8h.html" title="Lists Inspired by the concepts of the Linux kernel list API. " alt="" coords="5,169,173,211"/>
+<area shape="rect" id="node4" href="$ld_8h.html" title="Dynamic linking functions. " alt="" coords="115,95,253,121"/>
+<area shape="rect" id="node8" href="$elf_8h.html" title="ELF structures. " alt="" coords="361,177,503,203"/>
+<area shape="rect" id="node10" href="$module_8h.html" title="Module structure and operations for internal use in the dynamic linker. " alt="" coords="277,95,453,121"/>
+<area shape="rect" id="node5" href="$types_8h.html" title="Various system types. " alt="" coords="137,259,285,285"/>
+</map>

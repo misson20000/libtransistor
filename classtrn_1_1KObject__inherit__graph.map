@@ -1,0 +1,11 @@
+<map id="trn::KObject" name="trn::KObject">
+<area shape="rect" id="node2" href="$classtrn_1_1KResourceLimit.html" title="trn::KResourceLimit" alt="" coords="155,5,301,32"/>
+<area shape="rect" id="node3" href="$classtrn_1_1KSharedMemory.html" title="trn::KSharedMemory" alt="" coords="151,56,305,83"/>
+<area shape="rect" id="node4" href="$classtrn_1_1KTransferMemory.html" title="trn::KTransferMemory" alt="" coords="149,107,307,133"/>
+<area shape="rect" id="node5" href="$classtrn_1_1KWaitable.html" title="trn::KWaitable" alt="" coords="173,157,283,184"/>
+<area shape="rect" id="node10" href="$classtrn_1_1KWEvent.html" title="trn::KWEvent" alt="" coords="177,208,279,235"/>
+<area shape="rect" id="node6" href="$classtrn_1_1KDebug.html" title="trn::KDebug" alt="" coords="359,81,457,108"/>
+<area shape="rect" id="node7" href="$classtrn_1_1KEvent.html" title="trn::KEvent" alt="" coords="362,132,454,159"/>
+<area shape="rect" id="node8" href="$classtrn_1_1KPort.html" title="trn::KPort" alt="" coords="367,183,449,209"/>
+<area shape="rect" id="node9" href="$classtrn_1_1KProcess.html" title="trn::KProcess" alt="" coords="355,233,461,260"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="include/libtransistor/ipcserver.h" name="include/libtransistor/ipcserver.h">
+<area shape="rect" id="node2" href="$types_8h.html" title="Various system types. " alt="" coords="67,169,215,196"/>
+<area shape="rect" id="node6" href="$ipc_8h.html" title="Interprocess Communication data structures and functions. " alt="" coords="75,95,206,121"/>
+<area shape="rect" id="node7" href="$waiter_8h.html" title="Manager for waiting on synchronizable handles. " alt="" coords="231,95,381,121"/>
+</map>

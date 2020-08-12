@@ -1,0 +1,6 @@
+<map id="include/libtransistor/cpp/ipc.hpp" name="include/libtransistor/cpp/ipc.hpp">
+<area shape="rect" id="node2" href="$sm_8hpp.html" title="Service Manager IPC bindings (C++ header) " alt="" coords="5,184,152,225"/>
+<area shape="rect" id="node3" href="$nx_8hpp.html" title="Central Switch header. Includes all others (C++ version). " alt="" coords="141,273,288,315"/>
+<area shape="rect" id="node4" href="$ipcclient_8hpp.html" title="IPC client template library (C++ header) " alt="" coords="56,95,203,136"/>
+<area shape="rect" id="node5" href="$ipcserver_8hpp.html" title="IPC server (C++ header) " alt="" coords="277,184,424,225"/>
+</map>

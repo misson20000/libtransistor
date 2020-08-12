@@ -1,0 +1,51 @@
+<map id="include/libtransistor/cpp/nx.hpp" name="include/libtransistor/cpp/nx.hpp">
+<area shape="rect" id="node2" href="$nx_8h.html" title="Central Switch header. Includes all others. " alt="" coords="1855,191,1983,218"/>
+<area shape="rect" id="node40" href="$address__space_8hpp.html" title="Address space management (C++ header) " alt="" coords="3310,95,3489,136"/>
+<area shape="rect" id="node41" href="$types_8hpp_source.html" title="libtransistor/cpp/types.hpp" alt="" coords="4104,370,4295,397"/>
+<area shape="rect" id="node42" href="$ipc_8hpp.html" title="IPC (C++ header) " alt="" coords="3651,281,3825,307"/>
+<area shape="rect" id="node43" href="$ipcclient_8hpp.html" title="IPC client template library (C++ header) " alt="" coords="3634,191,3842,218"/>
+<area shape="rect" id="node44" href="$ipcserver_8hpp.html" title="IPC server (C++ header) " alt="" coords="4119,191,4333,218"/>
+<area shape="rect" id="node45" href="$waiter_8hpp.html" title="Manager for waiting on synchronizable handles (C++ bindings) " alt="" coords="4189,281,4383,307"/>
+<area shape="rect" id="node46" href="$svc_8hpp_source.html" title="libtransistor/cpp/svc.hpp" alt="" coords="3917,191,4095,218"/>
+<area shape="rect" id="node47" href="$hid_8hpp.html" title="Human Interface Device IPC bindings (C++ header) " alt="" coords="4257,95,4403,136"/>
+<area shape="rect" id="node48" href="$sm_8hpp.html" title="Service Manager IPC bindings (C++ header) " alt="" coords="3718,95,3865,136"/>
+<area shape="rect" id="node49" href="$usb__ds_8hpp.html" title="USB&#45;DS IPC bindings (C++ header) " alt="" coords="4427,95,4574,136"/>
+<area shape="rect" id="node50" href="$usb_8hpp.html" title="USB definitions (C++ header) " alt="" coords="4509,184,4655,225"/>
+<area shape="rect" id="node3" href="$types_8h.html" title="Various system types. " alt="" coords="1779,541,1927,568"/>
+<area shape="rect" id="node4" href="$loader__config_8h.html" title="Homebrew ABI configuration. " alt="" coords="2509,363,2650,404"/>
+<area shape="rect" id="node5" href="$ipc_8h.html" title="Interprocess Communication data structures and functions. " alt="" coords="3110,459,3241,486"/>
+<area shape="rect" id="node6" href="$runtime__config_8h.html" title="Runtime configuration. " alt="" coords="1891,452,2041,493"/>
+<area shape="rect" id="node7" href="$encoding_8h.html" title="String encoding functions Based on https://github.com/nothings/stb. " alt="" coords="2918,281,3089,307"/>
+<area shape="rect" id="node8" href="$environment_8h.html" title="Functions to query the current environment. " alt="" coords="2066,459,2261,486"/>
+<area shape="rect" id="node9" href="$alloc__pages_8h.html" title="Page allocation functions. " alt="" coords="2285,452,2415,493"/>
+<area shape="rect" id="node10" href="$address__space_8h.html" title="Address space management. " alt="" coords="3265,273,3417,315"/>
+<area shape="rect" id="node11" href="$err_8h.html" title="Error definitions. " alt="" coords="3467,459,3598,486"/>
+<area shape="rect" id="node12" href="$modules_8h_source.html" title="libtransistor/err/modules.h" alt="" coords="3360,541,3551,568"/>
+<area shape="rect" id="node13" href="$svc_8h.html" title="Supervisor Calls. " alt="" coords="3492,281,3627,307"/>
+<area shape="rect" id="node14" href="$ipc__helpers_8h.html" title="Functions and macros to make using IPC a little easier. " alt="" coords="2607,281,2792,307"/>
+<area shape="rect" id="node15" href="$util_8h.html" title="Various utililty functions. " alt="" coords="2675,370,2807,397"/>
+<area shape="rect" id="node16" href="$fd_8h.html" title="File operations. " alt="" coords="2693,459,2818,486"/>
+<area shape="rect" id="node17" href="$tls_8h.html" title="Thread Local Storage functions. " alt="" coords="1307,281,1435,307"/>
+<area shape="rect" id="node18" href="$thread_8h.html" title="Threading functions. " alt="" coords="983,370,1138,397"/>
+<area shape="rect" id="node19" href="$mutex_8h.html" title="Mutex functions and thread&#45;safety macros. " alt="" coords="2279,370,2434,397"/>
+<area shape="rect" id="node20" href="$condvar_8h.html" title="Condition variables. " alt="" coords="2083,281,2246,307"/>
+<area shape="rect" id="node21" href="$fs_2fs_8h.html" title="Functions to setup filesystem. " alt="" coords="151,281,290,307"/>
+<area shape="rect" id="node22" href="$inode_8h.html" title="Inode structures and functions for virtual filesystem. " alt="" coords="450,370,613,397"/>
+<area shape="rect" id="node23" href="$blobfd_8h.html" title="Memory&#45;backed file functions. " alt="" coords="1116,281,1283,307"/>
+<area shape="rect" id="node24" href="$mountfs_8h.html" title="Root Filesystem. " alt="" coords="314,281,495,307"/>
+<area shape="rect" id="node25" href="$fspfs_8h.html" title="FSP&#45;SRV based filesystem. " alt="" coords="571,281,729,307"/>
+<area shape="rect" id="node26" href="$squashfs_8h.html" title="Adapter for squashfuse to libtransistor virtual filesystem. " alt="" coords="753,281,939,307"/>
+<area shape="rect" id="node27" href="$am_8h.html" title="AM (Applet Manager) " alt="" coords="757,459,913,486"/>
+<area shape="rect" id="node28" href="$ipc_2audio_8h.html" title="Audio output. " alt="" coords="789,370,959,397"/>
+<area shape="rect" id="node29" href="$bpc_8h.html" title="Board Power Control. " alt="" coords="1147,459,1305,486"/>
+<area shape="rect" id="node30" href="$bsd_8h.html" title="BSD Sockets. " alt="" coords="2321,281,2480,307"/>
+<area shape="rect" id="node31" href="$fatal_8h.html" title="Fatal error services. " alt="" coords="1263,370,1426,397"/>
+<area shape="rect" id="node32" href="$ipc_2fs_8h.html" title="File System. " alt="" coords="1381,459,1527,486"/>
+<area shape="rect" id="node33" href="$ipc_2hid_8h.html" title="Human Interface Device IPC bindings. " alt="" coords="1501,370,1655,397"/>
+<area shape="rect" id="node34" href="$nifm_8h.html" title="Network Interface Manager. " alt="" coords="1602,459,1765,486"/>
+<area shape="rect" id="node35" href="$nv_8h.html" title="Nvidia Services. " alt="" coords="1730,370,1879,397"/>
+<area shape="rect" id="node36" href="$pm_8h.html" title="Process management. " alt="" coords="205,459,361,486"/>
+<area shape="rect" id="node37" href="$ro_8h.html" title="Loader Services. " alt="" coords="1904,370,2052,397"/>
+<area shape="rect" id="node38" href="$sm_8h.html" title="Service Manager. " alt="" coords="2882,370,3037,397"/>
+<area shape="rect" id="node39" href="$time_8h.html" title="Time Services. " alt="" coords="5,459,169,486"/>
+</map>

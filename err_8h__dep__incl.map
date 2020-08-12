@@ -1,0 +1,16 @@
+<map id="include/libtransistor/err.h" name="include/libtransistor/err.h">
+<area shape="rect" id="node2" href="$types_8hpp_source.html" title="include/libtransistor\l/cpp/types.hpp" alt="" coords="609,95,756,136"/>
+<area shape="rect" id="node13" href="$internal__util_8h.html" title="Various utility functions internal to libtransistor. " alt="" coords="795,95,941,136"/>
+<area shape="rect" id="node14" href="$ipc_2fs_2err_8h.html" title="Error definitions for Switch FS. " alt="" coords="965,95,1112,136"/>
+<area shape="rect" id="node15" href="$nx_8h.html" title="Central Switch header. Includes all others. " alt="" coords="1103,191,1281,218"/>
+<area shape="rect" id="node3" href="$hid_8hpp.html" title="Human Interface Device IPC bindings (C++ header) " alt="" coords="881,363,1028,404"/>
+<area shape="rect" id="node4" href="$nx_8hpp.html" title="Central Switch header. Includes all others (C++ version). " alt="" coords="549,452,696,493"/>
+<area shape="rect" id="node5" href="$sm_8hpp.html" title="Service Manager IPC bindings (C++ header) " alt="" coords="5,363,152,404"/>
+<area shape="rect" id="node6" href="$usb_8hpp.html" title="USB definitions (C++ header) " alt="" coords="720,184,867,225"/>
+<area shape="rect" id="node7" href="$usb__ds_8hpp.html" title="USB&#45;DS IPC bindings (C++ header) " alt="" coords="610,273,758,315"/>
+<area shape="rect" id="node8" href="$ipc_8hpp.html" title="IPC (C++ header) " alt="" coords="217,184,364,225"/>
+<area shape="rect" id="node9" href="$ipcclient_8hpp.html" title="IPC client template library (C++ header) " alt="" coords="217,273,364,315"/>
+<area shape="rect" id="node10" href="$ipcserver_8hpp.html" title="IPC server (C++ header) " alt="" coords="388,273,535,315"/>
+<area shape="rect" id="node11" href="$svc_8hpp_source.html" title="include/libtransistor\l/cpp/svc.hpp" alt="" coords="711,363,857,404"/>
+<area shape="rect" id="node12" href="$waiter_8hpp.html" title="Manager for waiting on synchronizable handles (C++ bindings) " alt="" coords="499,184,645,225"/>
+</map>

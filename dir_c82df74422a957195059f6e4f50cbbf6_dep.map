@@ -1,0 +1,21 @@
+<map id="include/libtransistor" name="include/libtransistor">
+<area shape="rect" id="node6" href="dir_efbe2e8f8a86f2736af384c3043e6c5f.html" title="fs" alt="" coords="133,159,205,207"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000001_000009.html" title="6" alt="" coords="207,145,216,159"/>
+<area shape="rect" id="node7" href="dir_7835af8dc0cf7ce78ec09bd4a745fd06.html" title="gfx" alt="" coords="229,159,301,207"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000001_000010.html" title="1" alt="" coords="269,133,278,148"/>
+<area shape="rect" id="node10" href="dir_bf2a8553eef5ab4718cee77d29306f3c.html" title="ld" alt="" coords="325,159,397,207"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000001_000014.html" title="2" alt="" coords="326,132,335,147"/>
+<area shape="rect" id="node2" href="dir_00725e5cdd62686a6f33b62be6f276bd.html" title="collections" alt="" coords="307,255,397,303"/>
+<area shape="rect" id="node3" href="dir_f88bb5ce666f7adbde636f90bbfb4516.html" title="cpp" alt="" coords="37,159,109,207"/>
+<area shape="rect" id="node9" href="dir_0a9c503e851a880ba3a33f8bb6f37882.html" title="ipc" alt="" coords="85,255,157,303"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000004_000002.html" title="2" alt="" coords="104,227,113,242"/>
+<area shape="rect" id="node4" href="dir_4c45ed4381da8a6a444b1d5a03109966.html" title="display" alt="" coords="85,351,157,399"/>
+<area shape="rect" id="node8" href="dir_2925eba6e093442d1a427c86a3365f5c.html" title="gpu" alt="" coords="85,447,157,495"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000006_000011.html" title="1" alt="" coords="125,421,134,436"/>
+<area shape="rect" id="node5" href="dir_89baa6b39f7a1cd2f92cfa70a873430a.html" title="err" alt="" coords="79,63,151,111"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000009_000002.html" title="1" alt="" coords="144,235,154,250"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000002_000006.html" title="2" alt="" coords="125,325,134,340"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000014_000003.html" title="2" alt="" coords="360,230,369,245"/>
+<area shape="rect" id="clust2" href="dir_c82df74422a957195059f6e4f50cbbf6.html" alt="" coords="27,52,408,505"/>
+<area shape="rect" id="clust1" href="dir_d44c64559bbebec7f509842c48db8b23.html" title="include" alt="" coords="16,16,419,516"/>
+</map>
