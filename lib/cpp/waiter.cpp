@@ -28,15 +28,15 @@ void WaitHandle::Cancel() {
 }
 
 bool WaitHandle::EventShim(void *data, handle_t handle) {
-	return ((WaitHandle*) data)->InvokeCallback<bool>();
+	return ((WaitHandle*) data)->InvokeBooleanCallback();
 }
 
 uint64_t WaitHandle::DeadlineShim(void *data) {
-	return ((WaitHandle*) data)->InvokeCallback<uint64_t>();
+	return ((WaitHandle*) data)->InvokeU64Callback();
 }
 
 bool WaitHandle::SignalShim(void *data) {
-	return ((WaitHandle*) data)->InvokeCallback<bool>();
+	return ((WaitHandle*) data)->InvokeBooleanCallback();
 }
 
 Waiter::Waiter() {

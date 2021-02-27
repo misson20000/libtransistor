@@ -32,12 +32,11 @@ class WaitHandle : public std::enable_shared_from_this<WaitHandle> {
 	static uint64_t DeadlineShim(void *data);
 	static bool SignalShim(void *data);
 
-	template<typename R>
-	R InvokeCallback() {
+	bool InvokeBooleanCallback() {
 		// make sure we don't get destroyed before this function returns
 		std::shared_ptr<WaitHandle> self = shared_from_this();
-		
-		if((*std::get<std::unique_ptr<std::function<R()>>>(callback))()) {
+
+		if((*std::get<std::unique_ptr<std::function<bool()>>>(callback))()) {
 			return true;
 		} else {
 			// this is why we need to extend our lifetime
@@ -45,6 +44,21 @@ class WaitHandle : public std::enable_shared_from_this<WaitHandle> {
 			return false;
 		}
 	}
+
+	uint64_t InvokeU64Callback() {
+		// make sure we don't get destroyed before this function returns
+		std::shared_ptr<WaitHandle> self = shared_from_this();
+
+		uint64_t ret = (*std::get<std::unique_ptr<std::function<uint64_t()>>>(callback))();
+		if(ret != 0) {
+			return ret;
+		} else {
+			// this is why we need to extend our lifetime
+			is_cancelled = true;
+			return ret;
+		}
+	}
+	
 	std::variant<std::unique_ptr<std::function<bool()>>, std::unique_ptr<std::function<uint64_t()>>> callback;
 	Waiter *waiter;
 	bool is_cancelled = false;
