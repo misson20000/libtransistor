@@ -83,15 +83,15 @@ result_t as_init() {
 			return r;
 		}
 	} else {
-		r = svcUnmapMemory((void*) 0xffffffffffffe000, (void *) ((2^36) - 0x2000), 0x1000);
+		r = svcUnmapMemory((void*) 0xffffffffffffe000, (void *) ((1ULL << 36) - 0x2000), 0x1000);
 		if(r == 0xdc01) { // invalid destination address
 			// source 36-bit address was valid
 			address_space.base = 0x8000000;
-			address_space.size = (2^36) - address_space.base;
+			address_space.size = (1ULL << 36) - address_space.base;
 		} else {
 			// let's just assume 32-bit
 			address_space.base = 0x200000;
-			address_space.size = (2^32) - address_space.base;
+			address_space.size = (1ULL << 36) - address_space.base;
 		}
 	}
 
