@@ -12,20 +12,38 @@ extern "C" {
 #include<libtransistor/types.h>
 
 typedef enum {
-	KERNEL_VERSION_INVALID,
-	KERNEL_VERSION_100,
-	KERNEL_VERSION_200,
-	KERNEL_VERSION_300,
-	KERNEL_VERSION_400,
-	KERNEL_VERSION_500,
-	KERNEL_VERSION_MAX = KERNEL_VERSION_500,
-} kernel_version_t;
+	TARGET_VERSION_INVALID,
+	TARGET_VERSION_1_0_0,
+	TARGET_VERSION_2_0_0,
+	TARGET_VERSION_3_0_0,
+	TARGET_VERSION_4_0_0,
+	TARGET_VERSION_5_0_0,
+	TARGET_VERSION_11_0_0,
+	TARGET_VERSION_MAX = TARGET_VERSION_11_0_0,
+} target_version_t;
 
 /**
- * @brief Returns the current kernel version, for feature-detection purposes
+ * @brief Returns the current target version, for feature-detection purposes.
  */
-kernel_version_t env_get_kernel_version();
+result_t env_get_target_version(target_version_t *version);
 
+
+/**
+ * @brief Infers the target version using set:sys.
+ */
+result_t env_infer_target_version_by_set_sys();
+
+
+/**
+ * @brief Sets the target version.
+ */
+result_t env_set_target_version(target_version_t version);
+
+
+/**
+ * @brief Returns the kernel's compatible target version, for SVC compatibility only.
+ */
+target_version_t env_get_svc_version();
 
 /**
  * @brief Gets a pointer to the top of the stack

@@ -36,6 +36,13 @@ extern runconf_heap_mode_t _trn_runconf_heap_mode;
 extern void *_trn_runconf_heap_base;
 extern size_t _trn_runconf_heap_size;
 
+typedef enum {
+	_TRN_RUNCONF_TARGET_VERSION_INFERENCE_NONE,
+	_TRN_RUNCONF_TARGET_VERSION_INFERENCE_BY_SET_SYS,
+} runconf_target_version_inference_t;
+
+extern runconf_target_version_inference_t _trn_runconf_target_version_inference;
+
 #ifdef __cplusplus
 }
 #endif

@@ -72,7 +72,7 @@ result_t as_init() {
 		return r;
 	}
 
-	if(env_get_kernel_version() >= KERNEL_VERSION_200) {
+	if(env_get_svc_version() >= TARGET_VERSION_2_0_0) {
 		if((r = as_set_region_from_info(as_grab_region(), 14, 15, RESERVED_BY_KERNEL)) != RESULT_OK) { // NewMapRegion
 			trn_mutex_unlock(&as_lock);
 			return r;

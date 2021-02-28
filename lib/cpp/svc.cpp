@@ -160,7 +160,7 @@ Result<debug_event_info_t> GetDebugEvent(KDebug &debug) {
 }
 
 Result<std::nullopt_t> ContinueDebugEvent(KDebug &debug, uint32_t continue_debug_flags, ThreadId *thread_ids, uint32_t num_thread_ids) {
-	if(env_get_kernel_version() >= KERNEL_VERSION_300) {
+	if(env_get_svc_version() >= TARGET_VERSION_3_0_0) {
 		return ResultCode::ExpectOk(svcContinueDebugEvent(debug.handle, continue_debug_flags, thread_ids, num_thread_ids));
 	} else {
 		return ResultCode::ExpectOk(svcContinueDebugEventOld(debug.handle, continue_debug_flags, thread_ids[0]));

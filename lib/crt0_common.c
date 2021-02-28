@@ -1,6 +1,7 @@
 #include<libtransistor/loader_config.h>
 #include<libtransistor/util.h>
 #include<libtransistor/svc.h>
+#include<libtransistor/environment.h>
 #include<libtransistor/err.h>
 #include<libtransistor/tls.h>
 #include<libtransistor/ipc/sm.h>
@@ -41,6 +42,8 @@ const char *_trn_runconf_stdio_override_sockets_port __attribute__((weak)) = "29
 runconf_heap_mode_t _trn_runconf_heap_mode __attribute__((weak)) = _TRN_RUNCONF_HEAP_MODE_DEFAULT;
 void *_trn_runconf_heap_base __attribute__((weak)) = NULL;
 size_t _trn_runconf_heap_size __attribute__((weak)) = 0;
+
+runconf_target_version_inference_t _trn_runconf_target_version_inference __attribute__((weak)) = _TRN_RUNCONF_TARGET_VERSION_INFERENCE_BY_SET_SYS;
 
 int main(int argc, char **argv);
 
@@ -166,6 +169,10 @@ int _libtransistor_start(loader_config_entry_t *config, uint64_t thread_handle, 
 		*/
 		LIB_ASSERT_OK(fail_tls, sm_init());
 		has_sm = true;
+
+		if(_trn_runconf_target_version_inference == _TRN_RUNCONF_TARGET_VERSION_INFERENCE_BY_SET_SYS) {
+			LIB_ASSERT_OK(fail_main, env_infer_target_version_by_set_sys());
+		}
 		
 		if(_trn_runconf_stdio_override == _TRN_RUNCONF_STDIO_OVERRIDE_NONE) {
 			if(loader_config.has_twili) {
