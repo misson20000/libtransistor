@@ -374,7 +374,7 @@ result_t waiter_wait(waiter_t *waiter, uint64_t timeout) {
 	} else {
 		if(r == 0xe401) { // invalid handle
 			dbg_printf("WAITER: got invalid handle, let's try to figure out whodunnit\n");
-			for(int i = 0; i < num_event_records; i++) {
+			for(size_t i = 0; i < num_event_records; i++) {
 				if(svcWaitSynchronization(&index, waiter->handle_buffer + i, 1, 0) == 0xe401) {
 					dbg_printf("  invalid handle: 0x%x\n", waiter->handle_buffer[i]);
 				}
