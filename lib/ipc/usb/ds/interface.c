@@ -14,20 +14,23 @@
 #include<stdio.h> // TODO: remove
 
 result_t usb_ds_interface_get_endpoint(usb_ds_interface_t *intf, usb_endpoint_descriptor_t *descriptor, usb_ds_endpoint_t *endpoint) {
-	if(env_get_kernel_version() >= KERNEL_VERSION_500) {
+	target_version_t target_version;
+	result_t r;
+	
+	LIB_ASSERT_OK(fail, env_get_target_version(&target_version));
+	
+	if(target_version >= TARGET_VERSION_5_0_0) {
 		if((descriptor->bEndpointAddress & 0x80) == TRN_USB_ENDPOINT_IN) {
 			descriptor->bEndpointAddress = TRN_USB_ENDPOINT_IN | _usb_next_in_ep_number++;
 		} else {
 			descriptor->bEndpointAddress = TRN_USB_ENDPOINT_OUT | _usb_next_out_ep_number++;
 		}
 
-		result_t r;
-		
 		for(size_t i = 0; _usb_speed_info[i].valid; i++) {
 			LIB_ASSERT_OK(fail, _usb_ds_500_append_configuration_data(intf, _usb_speed_info[i].speed_mode, (usb_descriptor_t*) descriptor));
 		}
 
-		ipc_request_t rq = ipc_make_request(0);
+		ipc_request_t rq = ipc_make_request(_usb_ds_interface_cmdids->GetDsEndpoint);
 		ipc_msg_raw_data_from_value(rq, descriptor->bEndpointAddress);
 
 		ipc_response_fmt_t rs = ipc_default_response_fmt;
@@ -37,8 +40,6 @@ result_t usb_ds_interface_get_endpoint(usb_ds_interface_t *intf, usb_endpoint_de
 		LIB_ASSERT_OK(fail, ipc_send(intf->object, &rq, &rs));
 		
 		return RESULT_OK;
-	fail:
-		return r;
 	} else {
 		ipc_buffer_t buffers[] = { ipc_buffer_from_reference(descriptor, 5) };
 		
@@ -54,13 +55,20 @@ result_t usb_ds_interface_get_endpoint(usb_ds_interface_t *intf, usb_endpoint_de
 		
 		return ipc_send(intf->object, &rq, &rs);
 	}
+
+fail:
+	return r;
 }
 
 result_t usb_ds_interface_enable(usb_ds_interface_t *intf) {
 	result_t r;
-	
-	ipc_request_t rq = ipc_make_request(3);
-	LIB_ASSERT_OK(fail, ipc_send(intf->object, &rq, &ipc_default_response_fmt));
+
+	if(_usb_ds_interface_cmdids->EnableInterface != -1) {
+		ipc_request_t rq = ipc_make_request(_usb_ds_interface_cmdids->EnableInterface);
+		LIB_ASSERT_OK(fail, ipc_send(intf->object, &rq, &ipc_default_response_fmt));
+	} else {
+		r = RESULT_OK;
+	}
 
 	if(!intf->is_enabled) {
 		intf->is_enabled = true;
@@ -72,8 +80,12 @@ fail:
 }
 
 result_t usb_ds_interface_disable(usb_ds_interface_t *intf) {
-	ipc_request_t rq = ipc_make_request(4);
-	return ipc_send(intf->object, &rq, &ipc_default_response_fmt);
+	if(_usb_ds_interface_cmdids->DisableInterface != -1) {
+		ipc_request_t rq = ipc_make_request(4);
+		return ipc_send(intf->object, &rq, &ipc_default_response_fmt);
+	} else {
+		return RESULT_OK;
+	}
 }
 
 result_t usb_ds_close_interface(usb_ds_interface_t *intf) {
@@ -91,7 +103,7 @@ result_t usb_ds_ctrl_in_post_buffer_async(usb_ds_interface_t *intf, void *buffer
 	raw.size = size;
 	raw.ptr = buffer;
 	
-	ipc_request_t rq = ipc_make_request(5);
+	ipc_request_t rq = ipc_make_request(_usb_ds_interface_cmdids->PostCtrlInBufferAsync);
 	ipc_msg_raw_data_from_value(rq, raw);
 
 	ipc_response_fmt_t rs = ipc_default_response_fmt;
@@ -108,7 +120,7 @@ result_t usb_ds_ctrl_out_post_buffer_async(usb_ds_interface_t *intf, void *buffe
 	raw.size = size;
 	raw.ptr = buffer;
 	
-	ipc_request_t rq = ipc_make_request(6);
+	ipc_request_t rq = ipc_make_request(_usb_ds_interface_cmdids->PostCtrlOutBufferAsync);
 	ipc_msg_raw_data_from_value(rq, raw);
 
 	ipc_response_fmt_t rs = ipc_default_response_fmt;
@@ -118,7 +130,7 @@ result_t usb_ds_ctrl_out_post_buffer_async(usb_ds_interface_t *intf, void *buffe
 }
 
 result_t usb_ds_get_ctrl_in_completion_event(usb_ds_interface_t *intf, revent_h *event) {
-	ipc_request_t rq = ipc_make_request(7);
+	ipc_request_t rq = ipc_make_request(_usb_ds_interface_cmdids->GetCtrlInCompletionEvent);
 
 	ipc_response_fmt_t rs = ipc_default_response_fmt;
 	ipc_msg_copy_handle_from_reference(rs, event);
@@ -127,7 +139,7 @@ result_t usb_ds_get_ctrl_in_completion_event(usb_ds_interface_t *intf, revent_h 
 }
 
 result_t usb_ds_get_ctrl_in_report_data(usb_ds_interface_t *intf, usb_ds_report_t *report) {
-	ipc_request_t rq = ipc_make_request(8);
+	ipc_request_t rq = ipc_make_request(_usb_ds_interface_cmdids->GetCtrlInReportData);
 
 	ipc_response_fmt_t rs = ipc_default_response_fmt;
 	ipc_msg_raw_data_from_reference(rs, report);
@@ -136,7 +148,7 @@ result_t usb_ds_get_ctrl_in_report_data(usb_ds_interface_t *intf, usb_ds_report_
 }
 
 result_t usb_ds_get_ctrl_out_completion_event(usb_ds_interface_t *intf, revent_h *event) {
-	ipc_request_t rq = ipc_make_request(9);
+	ipc_request_t rq = ipc_make_request(_usb_ds_interface_cmdids->GetCtrlOutCompletionEvent);
 
 	ipc_response_fmt_t rs = ipc_default_response_fmt;
 	ipc_msg_copy_handle_from_reference(rs, event);
@@ -145,7 +157,7 @@ result_t usb_ds_get_ctrl_out_completion_event(usb_ds_interface_t *intf, revent_h
 }
 
 result_t usb_ds_get_ctrl_out_report_data(usb_ds_interface_t *intf, usb_ds_report_t *report) {
-	ipc_request_t rq = ipc_make_request(10);
+	ipc_request_t rq = ipc_make_request(_usb_ds_interface_cmdids->GetCtrlOutReportData);
 
 	ipc_response_fmt_t rs = ipc_default_response_fmt;
 	ipc_msg_raw_data_from_reference(rs, report);
@@ -154,6 +166,6 @@ result_t usb_ds_get_ctrl_out_report_data(usb_ds_interface_t *intf, usb_ds_report
 }
 
 result_t usb_ds_stall_ctrl(usb_ds_interface_t *intf) {
-	ipc_request_t rq = ipc_make_request(11);
+	ipc_request_t rq = ipc_make_request(_usb_ds_interface_cmdids->StallCtrl);
 	return ipc_send(intf->object, &rq, &ipc_default_response_fmt);
 }

@@ -41,6 +41,11 @@ typedef enum {
 	TRN_USB_TRANSFER_TYPE_INTERRUPT = 0x3,
 } trn_usb_transfer_type_t;
 
+typedef enum {
+	TRN_USB_SPEED_FULL = 2,
+	TRN_USB_SPEED_HIGH = 3,
+	TRN_USB_SPEED_SUPER = 4,
+} trn_usb_speed_t;
 
 typedef struct __attribute__((packed, aligned(1))) {
 	uint8_t bLength;
@@ -174,15 +179,31 @@ void usb_ds_finalize();
 typedef struct {
 	bool valid;
 	uint16_t bcdUSB;
-	uint32_t speed_mode;
+	trn_usb_speed_t speed_mode;
 } _usb_speed_info_t;
 extern _usb_speed_info_t _usb_speed_info[];
 extern uint8_t _usb_next_in_ep_number;
 extern uint8_t _usb_next_out_ep_number;
+typedef struct {
+	int GetDsEndpoint;
+	int GetSetupEvent;
+	// mystery cmd2?
+	int EnableInterface;
+	int DisableInterface;
+	int PostCtrlInBufferAsync;
+	int PostCtrlOutBufferAsync;
+	int GetCtrlInCompletionEvent;
+	int GetCtrlInReportData;
+	int GetCtrlOutCompletionEvent;
+	int GetCtrlOutReportData;
+	int StallCtrl;
+	int AppendConfigurationData;
+} _usb_ds_interface_cmdid_table_t;
+extern const _usb_ds_interface_cmdid_table_t *_usb_ds_interface_cmdids;
 
 result_t _usb_ds_enable();
 result_t _usb_ds_disable();
-result_t _usb_ds_500_append_configuration_data(usb_ds_interface_t *interface, uint32_t speed_mode, usb_descriptor_t *descriptor);
+result_t _usb_ds_500_append_configuration_data(usb_ds_interface_t *interface, trn_usb_speed_t speed_mode, usb_descriptor_t *descriptor);
 
 #ifdef __cplusplus
 }
