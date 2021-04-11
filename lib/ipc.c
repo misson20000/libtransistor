@@ -85,6 +85,8 @@ ipc_response_fmt_t ipc_default_response_fmt = {
 	.raw_data_size = 0,
 	.raw_data = NULL,
 
+	.ignore_raw_data = false,
+
 	.has_pid = false,
 	.pid = NULL
 };
@@ -906,7 +908,8 @@ result_t ipc_unflatten_response(ipc_message_t *msg, ipc_response_fmt_t *rs, ipc_
 
 	uint32_t *raw_data = u32view + h;
   
-	if(((msg->raw_data_section_size * sizeof(uint32_t))
+	if(!rs->ignore_raw_data &&
+		 ((msg->raw_data_section_size * sizeof(uint32_t))
 	    - 0x10 // SFCI, command id
 	    - 0x10 // padding
 	    - (from_domain ? 0x10 + (rs->num_objects * sizeof(uint32_t)): 0) // domain header + out objects
@@ -964,7 +967,9 @@ result_t ipc_unflatten_response(ipc_message_t *msg, ipc_response_fmt_t *rs, ipc_
 	if(rs->has_pid) {
 		*rs->pid = msg->pid;
 	}
-	memcpy(rs->raw_data, raw_data, rs->raw_data_size);
+	if(!rs->ignore_raw_data) {
+		memcpy(rs->raw_data, raw_data, rs->raw_data_size);
+	}
 	return RESULT_OK;
 }
 

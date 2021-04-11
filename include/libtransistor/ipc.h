@@ -152,6 +152,8 @@ typedef struct {
 	size_t raw_data_size; ///< size in bytes of \ref raw_data
 	void *raw_data;
 
+	bool ignore_raw_data; ///< In 12.0.0, SM uses a crummy shim to handle CMIF, and it gets the raw data size wrong on responses.
+
 	bool has_pid;
 	uint64_t *pid;
 } ipc_response_fmt_t;

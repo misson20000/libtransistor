@@ -31,6 +31,7 @@ result_t sm_init() {
 	ipc_msg_raw_data_from_value(rq, raw);
 	
 	ipc_response_fmt_t rs = ipc_default_response_fmt;
+	rs.ignore_raw_data = true; // 12.0.0 CMIF shim gets this wrong
 	r = ipc_send(sm_object, &rq, &rs);
 	if(r != RESULT_OK) {
 		goto fail_session;
@@ -98,6 +99,7 @@ result_t sm_get_service_ex(ipc_object_t *out_object, const char *name, bool requ
 	rq.raw_data_size = sizeof(service_name);
 
 	ipc_response_fmt_t rs = ipc_default_response_fmt;
+	rs.ignore_raw_data = true; // 12.0.0 CMIF shim gets this wrong
 	rs.num_move_handles = 1;
 	rs.move_handles = &(out_object->session);
 
@@ -132,9 +134,10 @@ result_t sm_register_service(port_h *port, const char *name, uint32_t max_sessio
 	rq.raw_data_size = sizeof(params);
 
 	ipc_response_fmt_t rs = ipc_default_response_fmt;
+	rs.ignore_raw_data = true; // 12.0.0 CMIF shim gets this wrong
 	rs.num_move_handles = 1;
 	rs.move_handles = port;
-
+	
 	return ipc_send(sm_object, &rq, &rs);
 }
 
