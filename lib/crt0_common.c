@@ -279,8 +279,9 @@ fail_main:
 fail_tls:
 	memcpy(get_tls(), tls_backup, 0x200);
 	if(!IS_NRO && r != 0) {
-		fatal_init();
-		fatal_transition_to_fatal_error(r, 0);
+		if(fatal_init() == RESULT_OK) {
+			fatal_transition_to_fatal_error(r, 0);
+		}
 		while(1) {}
 	}
 fail:
