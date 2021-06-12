@@ -36,6 +36,13 @@ Result<ipc::client::Object> SM::GetService(const char *name) {
 		});
 }
 
+Result<handle_t> SM::GetHandleForService(const char *name) {
+	handle_t handle;
+	return ResultCode::ExpectOk(sm_get_handle_for_service(&handle, name)).map([&handle](auto const &v) {
+			return handle;
+		});
+}
+
 Result<KPort> SM::RegisterService(const char *name, uint32_t max_sessions) {
 	port_h handle;
 	return ResultCode::ExpectOk(sm_register_service(&handle, name, max_sessions)).map([&handle](auto const &v) -> KPort {

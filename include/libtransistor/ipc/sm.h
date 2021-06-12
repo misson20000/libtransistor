@@ -26,6 +26,14 @@ result_t sm_init();
 result_t sm_get_service(ipc_object_t *session, const char *name);
 
 /**
+* @brief Get a service by name and return a raw handle
+*
+* @param handle Acquired service handle
+* @param name The name of the service to get
+*/
+result_t sm_get_handle_for_service(handle_t *handle, const char *name);
+
+/**
 * @brief Get a service by name, optinally requiring that it has been overriden by the loader
 *
 * @param session Acquired service

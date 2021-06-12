@@ -21,6 +21,7 @@ class SM {
 	~SM();
 
 	Result<ipc::client::Object> GetService(const char *name);
+	Result<handle_t> GetHandleForService(const char *name);
 	Result<KPort> RegisterService(const char *name, uint32_t max_sessions);
 
  private:

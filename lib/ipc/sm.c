@@ -67,6 +67,36 @@ result_t sm_get_service(ipc_object_t *out_object, const char *name) {
 	return sm_get_service_ex(out_object, name, false);
 }
 
+result_t sm_get_handle_for_service(handle_t *handle, const char *name) {
+	if(!sm_object.session) {
+		return LIBTRANSISTOR_ERR_SM_NOT_INITIALIZED;
+	}
+  
+	uint64_t service_name = str2u64(name);
+  
+	if(strlen(name) > 8) {
+		return LIBTRANSISTOR_ERR_SM_SERVICE_NAME_TOO_LONG;
+	}
+
+	for(int i = 0; i < loader_config.num_service_overrides; i++) {
+		if(loader_config.service_overrides[i].service_name == service_name) {
+			return LIBTRANSISTOR_ERR_SM_SERVICE_OVERRIDDEN;
+		}
+	}
+
+	ipc_request_t rq = ipc_default_request;
+	rq.request_id = 1;
+	rq.raw_data = (uint32_t*) &service_name;
+	rq.raw_data_size = sizeof(service_name);
+
+	ipc_response_fmt_t rs = ipc_default_response_fmt;
+	rs.ignore_raw_data = true; // 12.0.0 CMIF shim gets this wrong
+	rs.num_move_handles = 1;
+	rs.move_handles = handle;
+
+	return ipc_send(sm_object, &rq, &rs);
+}
+
 result_t sm_get_service_ex(ipc_object_t *out_object, const char *name, bool require_override) {
 	if(!sm_object.session) {
 		return LIBTRANSISTOR_ERR_SM_NOT_INITIALIZED;
